@@ -7,8 +7,8 @@ class App extends Component {
         super(props);
         this.state = {
             counter: 0,
-            message: "",
-            warning: "The counter cannot go below 0."
+            error: false,
+            message: ""
         };
 
         this.decrementCounter = this.decrementCounter.bind(this);
@@ -17,14 +17,14 @@ class App extends Component {
 
     decrementCounter(){
           if (this.state.counter <= 0){
-              this.setState({counter: 0, message: this.state.warning});
+              this.setState({error: true, counter: 0, message: "The counter cannot go below 0."});
           } else if (this.state.counter > 0 && this.state.message === "") {
               this.setState({counter: this.state.counter-1});
           } 
     }
 
     incrementCounter(){
-          this.setState({counter: this.state.counter+1, message: ""});
+          this.setState({error: false, counter: this.state.counter+1, message: ""});
     }
 
   render() {
@@ -34,10 +34,22 @@ class App extends Component {
       // error.  My moral of the story: keep the logic in the function! Not the
       // render block!
 
+      const errorDiv = () => {
+      
+          if (this.state.error){
+            return <div data-test="counter-warning" style={{color: "red", fontSize: "x-large"}} >{this.state.message}</div> 
+          }
+          return false
+      }
+
+
     return (
       <div data-test="component-app" >
         <h1 data-test="counter-display">The Counter is: {this.state.counter}</h1>
-        <h3 data-test="counter-warning" style={{color: "red"}} >{this.state.message}</h3>
+        {/*<h3 data-test="counter-warning" style={{color: "red"}} >{this.state.message}</h3> */}
+
+        {errorDiv()}
+
         <button 
 			data-test="increment-button"
 			onClick={ this.incrementCounter }

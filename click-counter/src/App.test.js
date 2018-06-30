@@ -105,4 +105,18 @@ it('Trying to decrement past 0 returns a warning message', () => {
     expect(warningMessage.text()).toContain(checkWarning);
 })
 
+it('Error component does *not* exist unless state.error is true', () => {
+    const counter = 0;
+    const wrapper = setup(null, {counter});
+
+    // increment by one
+    const button = findByTestAttr(wrapper, "increment-button");
+    button.simulate('click');
+    wrapper.update();
+
+    // should not find errorDiv
+    expect(wrapper.state().counter).toBe(1);
+    expect(wrapper.find('counter-warning').exists()).toBe(false);
+}) 
+
 
