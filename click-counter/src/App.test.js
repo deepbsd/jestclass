@@ -16,9 +16,8 @@ Enzyme.configure({adapter: new EnzymeAdapter()});
 
 const setup = (props={}, state=null) => {
     const wrapper = shallow(<App {...props} />);
-	if (state) {
-		wrapper.setState(props);
-	}
+	if (state) wrapper.setState(state);
+	
 	return wrapper;
 }
 
@@ -60,7 +59,7 @@ it('Counter must start at 0', () => {
 
 });
 
-it('Clicking on button must increment counter in display', () => {
+it('Clicking on increment button must increment counter in display', () => {
 	const counter = 7;
 	const wrapper = setup(null, {counter});
 	
@@ -72,8 +71,38 @@ it('Clicking on button must increment counter in display', () => {
 	//find display and test value
     const counterDisplay = findByTestAttr(wrapper, "counter-display");
 	expect(counterDisplay.text()).toContain(counter+1);
-
-
-	
-	
 });
+
+it('Clicking on decrement button must decrement counter in display', () => {
+	const counter = 7;
+	const wrapper = setup(null, {counter});
+	
+	//find button and click
+    const button = findByTestAttr(wrapper, "decrement-button");
+	button.simulate('click');
+	wrapper.update();
+
+	//find display and test value
+    const counterDisplay = findByTestAttr(wrapper, "counter-display");
+	expect(counterDisplay.text()).toContain(counter-1);
+});
+
+it('Trying to decrement past 0 returns a warning message', () => {
+    const counter = 0;
+    const warning = "The counter cannot go below 0.";
+    const message = "";
+    const wrapper = setup(null, {counter, message, warning});
+    const checkWarning = "cannot go below 0.";
+
+    // try to decrement past 0
+    const button = findByTestAttr(wrapper, "decrement-button");
+    button.simulate('click');
+    wrapper.update();
+
+    // Should see warning message in state.message
+    const warningMessage = findByTestAttr(wrapper, "counter-warning");
+    expect(wrapper.state().message).toContain(checkWarning);
+    expect(warningMessage.text()).toContain(checkWarning);
+})
+
+
