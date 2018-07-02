@@ -7,7 +7,7 @@ const GuessedWords = (props) => {
     if (props.guessedWords.length === 0){
        contents = (
         <div data-test="guess-instructions">
-          Please enter a 5-letter word to guess!
+          Try to guess the secret word!
         </div>
         );
     } else {
@@ -21,8 +21,8 @@ const GuessedWords = (props) => {
         contents = (
           <div data-test="guessed-words">
            <h3>Guessed Words</h3>
-           <table>
-             <thead>
+           <table className="table table-sm">
+             <thead className="thead-light">
                <tr><th>Guess</th><th>Matching Letters</th></tr>
              </thead>
              <tbody>
