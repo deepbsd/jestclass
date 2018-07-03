@@ -11,8 +11,31 @@ import { shallow } from 'enzyme';
  * both correct and incorrect guesses
  */
 describe('guessWord action dispatcher', () => {
+	const secretWord = 'party';
+	const unsuccessfulGuess = 'train';
+	
 	describe('no guessed words', () => {
+	  let store;
+	  const initialState = { secretWord };
+ 	  beforeEach( () => {
+        store = storeFactory(initialState);
+	  });
+	  
 	  it('does the right thing for incorrect guess', () => {
+		store.dispatch(guessWord(unsuccessfulGuess));
+
+	    const newState = store.getState();
+
+	    const expectedState = {
+		  ...initialState,
+		  success: false,
+		  guessedWords: [{
+            guessedWord: unsuccessfulGuess,
+            letterMatchCount: 3
+		  }]
+	    };
+
+	    expect(newState).toEqual(expectedState);
 
 	  });
 
