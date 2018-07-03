@@ -27,10 +27,12 @@ it('Test does not throw warning with expected props', () => {
 });
 
 describe('If there are _no_ words guessed', () => {
+
     let wrapper;
     beforeEach(() => {
       wrapper = setup({ guessedWords: [] });
     })
+
     it('Renders with no errors', () => {
       const component = findByTestAttr(wrapper, 'component-guessed-words');
       expect(component.length).toBe(1);

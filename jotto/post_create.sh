@@ -17,6 +17,10 @@ npm install --save-dev redux react-redux
 
 [[ $? != 0 ]] && echo "Problem installing redux and react-redux" && exit 1
 
+#npm install --save-dev redux-thunk
+#
+#[[ $? != 0 ]] && echo "Problem installing redux-thunk" && exit 1
+
 echo "Success!"
 
 exit 0
