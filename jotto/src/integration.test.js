@@ -23,9 +23,7 @@ describe('guessWord action dispatcher', () => {
 	  
 	  it('does the right thing for incorrect guess', () => {
 		store.dispatch(guessWord(unsuccessfulGuess));
-
 	    const newState = store.getState();
-
 	    const expectedState = {
 		  ...initialState,
 		  success: false,
@@ -34,24 +32,56 @@ describe('guessWord action dispatcher', () => {
             letterMatchCount: 3
 		  }]
 	    };
-
 	    expect(newState).toEqual(expectedState);
-
 	  });
 
 	  it('does the right thing for correct guess', () => {
-
+		store.dispatch(guessWord(secretWord));
+	    const newState = store.getState();
+	    const expectedState = {
+		  ...initialState,
+		  success: true,
+		  guessedWords: [{
+            guessedWord: secretWord,
+            letterMatchCount: 5
+		  }]
+	    };
+	    expect(newState).toEqual(expectedState);
   	  });
 
 	});
 	
 	describe('some guessed words', () => {
-	  it('does the right thing for incorrect guess', () => {
+      
+      const guessedWords = [ { guessedWord: 'agile', matchedLetterCount: 1 } ];
 
+      const initialState = { guessedWords, secretWord };
+
+      let store;
+      beforeEach( () => {
+          store = storeFactory(initialState);
+      });
+
+	  it('does the right thing for incorrect guess', () => {
+        store.dispatch(guessWord(unsuccessfulGuess));
+        const newState = store.getState()
+            const expectedState = {
+                secretWord,
+                success: false,
+                guessedWords: [...guessedWords, {guessedWord: unsuccessfulGuess, letterMatchCount: 3}],
+            }
+        expect(newState).toEqual(expectedState);
 	  });
 	  
 	  it('does the right thing for correct guess', () => {
-
+        store.dispatch(guessWord(secretWord));
+        const newState = store.getState()
+            const expectedState = {
+                secretWord,
+                success: true,
+                guessedWords: [...guessedWords, {guessedWord: secretWord, letterMatchCount: 5}],
+            }
+        expect(newState).toEqual(expectedState);
 	  });
 
 	});
