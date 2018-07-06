@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { storeFactory } from '../test/testUtils';
-import App from './App';
+import App, { UnconnectedApp } from './App';
 
 /**
  * @Function Setup
@@ -41,3 +41,23 @@ describe('redux properties', () => {
     });
 });
 
+it('`getSecretWord` runs when component is mounted', () => {
+    const getSecretWordMock = jest.fn();
+
+
+    const props = {
+        getSecretWord: getSecretWordMock,
+        success: false,
+        guessedWords: [],
+    }
+    
+    const wrapper = shallow(<UnconnectedApp {...props} />)
+
+    // run the lifecycle method...
+    wrapper.instance().componentDidMount();
+
+    // Did our mock function get called?
+    const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
+    expect(getSecretWordCallCount).toBe(1);
+
+});

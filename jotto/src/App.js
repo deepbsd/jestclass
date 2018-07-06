@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSecretWord } from './actions';
-import Input from './Input';
-
 import './App.css';
 
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats';
+import Input from './Input';
+import { getSecretWord } from './actions';
 
-class App extends Component {
+
+
+
+export class UnconnectedApp extends Component {
+  /*
+   * @method componentDidMount
+   * @returns {undefined}
+   */
+  componentDidMount(){
+    // call the getSecretWord() action
+    this.props.getSecretWord();
+    }
+
   render() {
     return (
       <div className="container">
@@ -22,9 +33,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { success, guessedWords, secretWord } = state;
+  const  { success, guessedWords, secretWord } = state;
   return { success, guessedWords, secretWord };
 }
 
 
-export default connect(mapStateToProps, { getSecretWord })(App);
+export default connect(mapStateToProps, { getSecretWord })(UnconnectedApp);
