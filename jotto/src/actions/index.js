@@ -48,10 +48,3 @@ export const getSecretWord = () => {
 
 
 
-/**
- * @function correctGuess()
- * @returns {object} actionObject with CORRECT_GUESS
- */ 
-//export function correctGuess(){
-//    return { type: actionTypes.CORRECT_GUESS  };
-//}
