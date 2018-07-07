@@ -17,7 +17,7 @@ export class UnconnectedApp extends Component {
    */
   componentDidMount(){
     // call the getSecretWord() action
-    this.props.getSecretWord();
+    //this.props.getSecretWord();
     }
 
   render() {
