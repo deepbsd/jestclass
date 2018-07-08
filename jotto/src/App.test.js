@@ -56,14 +56,11 @@ it('`getSecretWord` runs when component is mounted', () => {
     
     const wrapper = shallow(<UnconnectedApp {...props} />)
 
-    console.log(wrapper.debug());
 
     // run the lifecycle method...
     wrapper.instance().componentDidMount();
 
     // Did our mock function get called?
-    console.log(props.getSecretWord);
-    console.log(wrapper.instance().props);
     const getSecretWordCallCount = getSecretWordMock.mock.calls.length;
     expect(getSecretWordCallCount).toBe(1);
 
