@@ -115,15 +115,17 @@ describe('`guessWord` action creator call', () => {
     it('gets called when submit button is pressed', () => {
         // Did our mock function get called?
         const guessWordCallCount = guessWordMock.mock.calls.length;
-        //console.log(wrapper.debug())
         expect(guessWordCallCount).toBe(1);
     });
 
     it('calls guessWord with correct input value', () => {
-       console.log(guessWordMock.mock.calls);
        const guessWordArg = guessWordMock.mock.calls[0][0];
        expect(guessWordArg).toBe(guessedWord);
 
     });
+
+    it('input box is cleared on submit', () => {
+        expect(wrapper.instance().inputBox.current.value).toBe('');
+    })
 
 });
